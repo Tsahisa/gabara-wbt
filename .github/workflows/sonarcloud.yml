@@ -23,4 +23,4 @@ jobs:
         with:
           organization: tsahisa
           projectKey: tsahisa_gabara_wbt
-          token: ${{ 4cc3e2110544a2dd01ec4d1c8ed01ac373e608ed }}
+          token: ${{ secrets.SONAR_TOKEN }}
