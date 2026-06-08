@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.x"
+          flutter-version: "3.24.0"
       - name: Install dependencies
         run: flutter pub get
       - name: Run SonarCloud Scan
