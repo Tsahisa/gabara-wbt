@@ -1,26 +1,32 @@
-name: SonarCloud
-
+name: Build
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
-
 jobs:
-  sonarcloud:
-    name: SonarCloud Scan
+  sonarqube:
+    name: SonarQube
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.44.1"
-      - name: Install dependencies
-        run: flutter pub get
-      - name: Run SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
+          fetch-depth: 0  # Mengonfigurasi agar riwayat git terbaca penuh demi akurasi analisis
+
+      # Langkah tambahan untuk menyiapkan environment Flutter di server GitHub
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          organization: tsahisa
-          projectKey: tsahisa_gabara_wbt
-          token: ${{ secrets.SONAR_TOKEN }}
+          channel: 'stable'
+
+      # Mengganti <commands_to_build_your_project> dengan perintah Flutter:
+      - name: Build and Test Flutter Project
+        run: |
+          flutter pub get
+          flutter test --coverage
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
