@@ -21,6 +21,6 @@ jobs:
       - name: Run SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
-          organization: YOUR_ORG_KEY
-          projectKey: YOUR_ORG_KEY_gabara-wbt
+          organization: tsahisa
+          projectKey: tsahisa_gabara_wbt
           token: ${{ secrets.SONAR_TOKEN }}
